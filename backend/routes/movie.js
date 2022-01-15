@@ -46,7 +46,7 @@ router.put('/edit/:id',(request,response)=>{
 router.delete('/delete/:id',(request,response)=>{
     const {id} = request.params
     const connection = db.openConnection()
-    const query = `DELETE FROM movie WHERE id = '${id}'`
+    const query = `DELETE FROM movie WHERE movie_id = '${id}'`
     connection.query(query,(error,data)=>{
         connection.end()
         if(error){
