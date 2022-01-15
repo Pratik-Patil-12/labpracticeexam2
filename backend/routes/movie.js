@@ -4,7 +4,7 @@ const utils = require('../utils')
 const router = express.Router()
 
 router.get('/all',(request,response)=>{
-    const connection = db.connection()
+    const connection = db.openConnection()
     const query = `SELECT * FROM movie`
     connection.query(query,(error,data)=>{
         connection.end()
@@ -17,7 +17,7 @@ router.get('/all',(request,response)=>{
 })
 router.post('/add',(request,response)=>{
     const {movie_title, movie_release_date, movie_time,director_name}= request.body
-    const connection = db.connection()
+    const connection = db.openConnection()
     const query = `INSERT INTO movie (movie_id, movie_title, movie_release_date, movie_time,director_name)
                     values(default,'${movie_title}','${movie_release_date}','${movie_time}','${director_name}')`
     connection.query(query,(error,data)=>{
@@ -32,7 +32,7 @@ router.post('/add',(request,response)=>{
 router.put('/edit/:id',(request,response)=>{
     const {movie_release_date,movie_time} = request.body
     const {id} = request.params
-    const connection = db.connection()
+    const connection = db.openConnection()
     const query = `UPDATE movie SET movie_release_date='${movie_release_date}', movie_time='${movie_time}' WHERE movie_id = '${id}'`
     connection.query(query,(error,data)=>{
         connection.end()
@@ -45,7 +45,7 @@ router.put('/edit/:id',(request,response)=>{
 })
 router.delete('/delete/:id',(request,response)=>{
     const {id} = request.params
-    const connection = db.connection()
+    const connection = db.openConnection()
     const query = `DELETE FROM movie WHERE id = '${id}'`
     connection.query(query,(error,data)=>{
         connection.end()
