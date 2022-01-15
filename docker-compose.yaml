@@ -8,4 +8,4 @@ services:
       - db
 
   db:
-  build: ./db
+    build: ./db
